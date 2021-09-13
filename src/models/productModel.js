@@ -5,21 +5,22 @@ const productSchema = new mongoose.Schema({
     type: UUID,
     default: uuidv4
   },
-  username: {
+  name: {
     type: String,
-    required: "Username is required"
+    required: "Name is required"
   },
-  password: {
+  price: {
     type: String,
-    required: "Uhm... Account without password? Help?"
+    required: "Price is required"
   },
-  creationDate: {
-    type: Date,
-    default: Date.now()
+  description: {
+    type: String,
+    required: "Description is required"
   },
-  lastLoginDate: {
-    type: Date,
-    default: 0
+  img: {
+    type: Buffer,
+    contentType: String,
+    required: "No Image?"
   }
 });
 
