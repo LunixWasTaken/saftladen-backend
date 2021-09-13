@@ -6,5 +6,6 @@
 - Kevin
 - Marco
 - Justus
+- Mika
 
 npm install mongoose express dotenv jsonwebtoken
