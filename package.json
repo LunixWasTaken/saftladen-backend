@@ -1,0 +1,25 @@
+{
+  "name": "saftladen-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "null"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LunixWasTaken/saftladen-backend.git"
+  },
+  "author": "LunixWasTaken",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LunixWasTaken/saftladen-backend/issues"
+  },
+  "homepage": "https://github.com/LunixWasTaken/saftladen-backend#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.5"
+  }
+}
