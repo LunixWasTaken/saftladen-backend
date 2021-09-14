@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema({
   lastLoginDate: {
     type: Date,
     default: 0
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false
   }
 });
 

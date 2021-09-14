@@ -10,4 +10,4 @@ router.get('/', async (req, res, next) => {
   res.status(200).type('application/json').send(result);
 });
 
-export default router;
+export const pGet = router ;

@@ -5,8 +5,12 @@ import products from '../../models/productModel';
 const router = express.Router();
 
 
-router.delete('/', (req, res, next) => {
-
+router.delete('/:id', (req, res, next) => {
+  const filter = { _id: mongoose.Types.ObjectId(req.params.id) }
+  const product = await products.findOneAndDelete(filter, 
+    (err, product) => {
+      err ? res.status(404).json({ success: false, err }) : res.status(200).json(product)
+    })
 });
 
-export default router;
+export const pDelete = router ;
