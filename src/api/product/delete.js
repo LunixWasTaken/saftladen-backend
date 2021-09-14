@@ -1,5 +1,5 @@
 import express from 'express';
-import products from '../../models/productModel';
+import products from '../../models/productModel.js';
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
@@ -17,4 +17,4 @@ router.delete('/:id', (req, res, next) => {
   });
 });
 
-export const pDelete = router;
+export default router;

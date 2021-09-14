@@ -13,5 +13,6 @@ module.exports = {
   'rules': {
     "quotes": [0, "double"],
     "max-len": [0, 200],
+    "require-jsdoc": [0, false],
   },
 };

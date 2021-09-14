@@ -1,21 +1,17 @@
 import mongoose from 'mongoose';
 
 const productSchema = new mongoose.Schema({
-  _id: {
-    type: UUID,
-    default: uuidv4
-  },
   name: {
     type: String,
-    required: "Name is required"
+    required: "Name is required",
   },
   price: {
     type: String,
-    required: "Price is required"
+    required: "Price is required",
   },
   description: {
     type: String,
-    required: "Description is required"
+    required: "Description is required",
   },
   img: {
     type: Buffer,
@@ -24,8 +20,8 @@ const productSchema = new mongoose.Schema({
   },
   available: {
     type: Boolean,
-    default: true
-  }
+    default: true,
+  },
 });
 
-module.exports = Products = mongoose.model('Products', productSchema);
+export default mongoose.model('Products', productSchema);

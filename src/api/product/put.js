@@ -1,5 +1,5 @@
 import express from 'express';
-import products from '../../models/productModel';
+import products from '../../models/productModel.js';
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
@@ -14,13 +14,13 @@ router.put('/', (req, res, next) => {
     img: req.body.img,
     available: req.body.available,
   };
-  products.insert(prod, (err, data) => {
+  products.create(prod, (err, data) => {
     if (err) {
-      return res.sendStatus(500);
       console.error(err);
+      return res.sendStatus(500);
     }
     res.status(201).type('application/json').send(data);
   });
 });
 
-export const pPut = router;
+export default router;
