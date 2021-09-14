@@ -9,4 +9,4 @@ router.delete('/', (req, res, next) => {
 
 });
 
-export default router;
+export const pDelete = router ;

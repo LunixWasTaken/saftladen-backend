@@ -13,7 +13,7 @@ router.patch('/:id', async (req, res, next) => {
   prod.description = prod.description != obj.description ? obj.description : prod.description;
   prod.img = prod.img != obj.img ? obj.img : prod.img;
   prod.available = prod.available != obj.available ? obj.available : prod.available;
-  
+
 });
 
-export default router;
+export const pGet = router ;

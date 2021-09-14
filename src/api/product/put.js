@@ -9,4 +9,4 @@ router.put('/', (req, res, next) => {
 
 });
 
-export default router;
+export const pPut = router ;
