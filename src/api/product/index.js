@@ -20,4 +20,4 @@ router.patch('/', pPatch);
 router.delete('/', pDelete);
 // Returns specific Product by ID
 
-export const productRoutes = router ;
+export const productRoutes = router;

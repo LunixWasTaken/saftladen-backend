@@ -10,4 +10,10 @@ router.get('/', async (req, res, next) => {
   res.status(200).type('application/json').send(result);
 });
 
-export const pGet = router ;
+router.get('/:id', async (req, res, next) => {
+  const result = await products.findOne({_id: req.params.id});
+  if (!result) return res.sendStatus(404);
+  res.status(200).type('application/json').send(result);
+});
+
+export const pGet = router;
