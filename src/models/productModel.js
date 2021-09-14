@@ -20,7 +20,11 @@ const productSchema = new mongoose.Schema({
   img: {
     type: Buffer,
     contentType: String,
-    //required: "No Image?"
+    // required: "No Image?"
+  },
+  available: {
+    type: Boolean,
+    default: true
   }
 });
 
