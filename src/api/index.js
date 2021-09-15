@@ -15,13 +15,12 @@ function logging( req, res, next) {
   next();
 }
 
-
+app.use(cors());
 app.use(logging);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(upload.array());
 
-// Use the Router on the sub route /movies
 app.get('/', (req, res) => {
   res.status(200).end();
 });
