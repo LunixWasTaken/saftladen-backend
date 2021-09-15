@@ -1,15 +1,11 @@
 import mongoose from 'mongoose';
-import productSchema from './productModel';
 
 const orderSchema = new mongoose.Schema({
-  products: [{
-    type: productSchema,
-    required: "Order cannot be Empty!",
-  }],
+  products: [],
   orderStatus: {
     type: String,
-    required: "Status",
-    default: "In Progress",
+    default: "in progress",
+    enum: ['in progress', 'done', 'canceled', 'delayed', 'please contact customer support'],
   },
 });
 
