@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import multer from 'multer';
+import cors from 'cors';
 
 import userRoutes from './user/index.js';
 import productRoutes from './product/index.js';
