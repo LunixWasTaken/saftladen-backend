@@ -1,6 +1,11 @@
 import express from 'express';
 
-import {pGet, pPut, pPatch, pDelete} from '.';
+import pGet from './get.js';
+import pGetId from './getId.js';
+import pPatch from './patch.js';
+import pDelete from './delete.js';
+import pPut from './put.js';
+
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
@@ -8,16 +13,16 @@ const router = express.Router();
 router.get('/', pGet);
 // Returns ALL Products
 
-router.get('/', pGetItem);
+router.get('/:id', pGetId);
 // Returns specific Product by ID
 
 router.put('/', pPut);
 // Creates new Object in database
 
-router.patch('/', pPatch);
+router.patch('/:id', pPatch);
 // Returns specific Product by ID
 
-router.delete('/', pDelete);
+router.delete('/:id', pDelete);
 // Returns specific Product by ID
 
-export const productRoutes = router ;
+export default router;

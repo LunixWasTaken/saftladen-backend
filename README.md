@@ -8,4 +8,6 @@
 - Justus
 - Mika
 
-npm install mongoose express dotenv jsonwebtoken
+# How to use:
+npm install
+copy .env.example to .env and fill it.

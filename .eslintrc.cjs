@@ -11,6 +11,8 @@ module.exports = {
     'sourceType': 'module',
   },
   'rules': {
-    "quotes": off
+    "quotes": [0, "double"],
+    "max-len": [0, 200],
+    "require-jsdoc": [0, false],
   },
 };

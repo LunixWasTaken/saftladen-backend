@@ -1,20 +1,16 @@
 import mongoose from 'mongoose';
-import productSchema from './productModel';
 
 const orderSchema = new mongoose.Schema({
-  _id: {
-    type: UUID,
-    default: uuidv4
+  customerId: {
+    type: String,
+    required: "User required.",
   },
-  products: [{
-    type: productSchema,
-    required: "Order cannot be Empty!"
-  }],
+  products: [],
   orderStatus: {
     type: String,
-    required: "Status",
-    default: "In Progress"
-  }
+    default: "in progress",
+    enum: ['in progress', 'done', 'canceled', 'delayed', 'please contact customer support'],
+  },
 });
 
-module.exports = Orders = mongoose.model('Orders', orderSchema);
+export default mongoose.model('Orders', orderSchema);
