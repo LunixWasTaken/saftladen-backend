@@ -15,6 +15,7 @@ router.put('/', (req, res, next) => {
     description: req.body.description,
     img: req.body.img,
     available: req.body.available,
+    category: req.body.category,
   };
   products.create(prod, (err, data) => {
     if (err) {
