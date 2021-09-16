@@ -36,7 +36,7 @@ function authenticateToken(req, res, next) {
 
 app.use(cookieParser());
 app.use(logging);
-app.use(authenticateToken);
+// app.use(authenticateToken);
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));

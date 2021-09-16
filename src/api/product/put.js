@@ -6,8 +6,8 @@ const router = express.Router();
 
 
 router.put('/', (req, res, next) => {
-  if (!req.body) res.sendStatus(400);
-  if (!req.Admin) res.sendStatus(403);
+  if (!req.body) return res.sendStatus(400);
+  // if (!req.Admin) return res.sendStatus(403);
 
   const prod = {
     name: req.body.name,
