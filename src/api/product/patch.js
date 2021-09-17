@@ -7,7 +7,7 @@ const router = express.Router();
 
 const validationRules = {
   "name": "required|string",
-  "price": "required|numeric",
+  "price": "required|numeric|min:0",
   "description": "required|string",
   "available": "boolean",
   "category": "required|string",
