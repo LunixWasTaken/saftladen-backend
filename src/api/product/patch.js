@@ -14,13 +14,13 @@ const validationRules = {
   "img": "",
 };
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', async (req, res, next) => {
   if (!req.body) return res.sendStatus(400);
   // if (!req.isAdmin) return res.sendStatus(403);
   const obj = req.body;
-  const validation = new Validator(req.body, validationRules);
-
+  const validation = new Validator(prod, validationRules);
   validation.fails(() => {
+    console.log("Validation failed.");
     return res.status(412).json({
       success: false,
       message: {
@@ -29,6 +29,8 @@ router.patch('/:id', async (req, res) => {
       },
     });
   });
+
+  if (!validation.check()) return;
 
   try {
     products.findOne({

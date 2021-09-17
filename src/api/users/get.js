@@ -1,17 +1,17 @@
 import express from 'express';
-import users from '../../models/userModel.js';
+import User from '../../models/userModel.js';
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
 
 router.get('/', async (req, res, next) => {
-  const result = await users.find();
+  const result = await User.find();
   res.status(200).type('application/json').send(result);
 });
 
 router.get('/:id', async (req, res, next) => {
-  const result = await users.findOne({_id: req.params.id});
+  const result = await User.findOne({_id: req.params.id});
   if (!result) return res.sendStatus(404);
   res.status(200).type('application/json').send(result);
 });

@@ -27,9 +27,16 @@ router.put('/', (req, res) => {
     category: req.body.category,
   };
 
-  const validation = new Validator(req.body, validationRules);
+  const validation = new Validator(prod, validationRules);
   validation.fails(() => {
-    return res.status(412).json({success: false, message: {hint: "Validation failed", details: validation.errors}});
+    console.log("Validation failed.");
+    return res.status(412).json({
+      success: false,
+      message: {
+        hint: "Validation failed",
+        details: validation.errors,
+      },
+    });
   });
 
   if (!validation.check()) return;

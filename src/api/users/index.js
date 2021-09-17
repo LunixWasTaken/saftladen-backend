@@ -8,7 +8,8 @@ import uRegister from './register.js';
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-router.post('/register', uLogin);
-router.post('/login', uRegister);
+
+router.use('/register', uRegister);
+router.use('/login', uLogin);
 
 export default router;
