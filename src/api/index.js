@@ -26,8 +26,13 @@ function authenticateToken(req, res, next) {
   const exceptions = ['/user/login', '/user/register', '/'];
   if (exceptions.includes(req.url)) return next();
 
+  const token = undefined;
   const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+  if (authHeader) {
+    token = authHeader && authHeader.split(' ')[1];
+  } else {
+    token = req.cookies.token;
+  }
   if (token == null) return res.sendStatus(401);
 
   jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {

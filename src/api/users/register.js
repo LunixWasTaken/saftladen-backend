@@ -68,7 +68,7 @@ router.post('/', async (req, res, next) => {
     expiresIn: '8h',
   });
 
-  res.cookie('token', token);
+  res.cookie('token', token, {maxAge: 28800, httpOnly: true});
   res.status(200).json({
     success: true,
   });
