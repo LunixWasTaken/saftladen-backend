@@ -52,7 +52,7 @@ router.patch('/:id', async (req, res, next) => {
       prod.save();
       return res.status(200).json({
         success: true,
-        modified: JSON.stringify(prod),
+        modified: prod,
       });
     });
   } catch {

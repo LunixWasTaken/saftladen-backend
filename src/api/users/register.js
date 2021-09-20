@@ -28,7 +28,9 @@ router.post('/', async (req, res, next) => {
 
   if (!validation.check()) return;
 
-  const dbUser = await User.findOne({username: req.body.username}).catch((err) => {
+  const dbUser = await User.findOne({
+    username: req.body.username,
+  }).catch((err) => {
     return res.status(500).json({
       success: false,
       message: err,
@@ -61,11 +63,15 @@ router.post('/', async (req, res, next) => {
     username: newUser.username,
     creationDate: newUser.creationDate,
     isAdmin: newUser.isAdmin,
+    id: newUser._id,
   }, process.env.TOKEN_SECRET, {
     expiresIn: '8h',
   });
+
   res.cookie('token', token);
-  res.status(200).json({success: true});
+  res.status(200).json({
+    success: true,
+  });
 });
 
 export default router;

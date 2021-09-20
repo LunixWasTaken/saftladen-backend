@@ -6,7 +6,7 @@ const router = express.Router();
 
 
 router.delete('/:id', (req, res, next) => {
-  if (!req.Admin) res.sendStatus(403);
+  if (!req.user.isAdmin) return res.sendStatus(403);
 
   const filter = {
     _id: req.params.id,
@@ -15,7 +15,7 @@ router.delete('/:id', (req, res, next) => {
     err ? res.status(404).json({
       success: false,
       message: err,
-    }) : res.status(200).json(order);
+    }) : res.status(200).json({success: true});
   });
 });
 

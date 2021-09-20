@@ -58,7 +58,7 @@ app.use('/order', orderRoutes);
 
 app.use((req, res ) => {
   if (!res.headersSent) {
-    res.send(500).json({
+    res.status(500).json({
       success: false,
       message: {
         hint: "Critical Internal error",

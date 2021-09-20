@@ -11,7 +11,7 @@ const validationRules = {
 };
 
 router.put('/', (req, res) => {
-  if (!req.body) res.sendStatus(400);
+  if (!req.body) return res.sendStatus(400);
 
   const validation = new Validator(req.body, validationRules);
   validation.fails(() => {
@@ -24,18 +24,20 @@ router.put('/', (req, res) => {
     });
   });
 
+  if (!validation.check()) return;
 
   const order = {
-    "products": body.products,
-    "orderStatus": body.status,
+    "products": req.body.products,
+    "orderStatus": req.body.status,
+    "customerId": req.user.id,
   };
 
   orders.create(order, (err, data) => {
     if (err) {
       console.error("PUT ORDER", err);
-      return res.sendStatus(500);
+      return res.status(500).json({success: false, message: err});
     }
-    res.status(201).type('json').send(data);
+    res.status(201).type('json').send({success: true, created: data});
   });
 });
 

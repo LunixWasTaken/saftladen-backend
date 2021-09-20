@@ -6,11 +6,19 @@ const router = express.Router();
 
 
 router.get('/:id', async (req, res) => {
-  orders.findOne({_id: req.params.id}, (err, data) => {
-    if (err) return res.status(400).json({success: false, message: err});
-    if (!data) return res.sendStatus(404);
-    res.status(200).type('application/json').send(JSON.stringify(data));
+  const dbOrder = await orders.findOne({
+    _id: req.params.id,
+    customerId: req.user.id,
+  }).catch((err) => {
+    return res.status(400).json({
+      success: false,
+      message: err,
+    });
   });
+
+  if (!dbOrder) return res.send(404);
+
+  res.status(200).type('json').send(dbOrder);
 });
 
 export default router;
