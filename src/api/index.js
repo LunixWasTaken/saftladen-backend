@@ -40,10 +40,14 @@ function authenticateToken(req, res, next) {
   });
 }
 
+const corsOptions = {
+  exposedHeaders: 'Set-Cookie',
+};
+
 app.use(cookieParser());
 app.use(logging);
 app.use(authenticateToken);
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(upload.array());
@@ -55,18 +59,6 @@ app.get('/', (req, res) => {
 app.use('/user', userRoutes);
 app.use('/product', productRoutes);
 app.use('/order', orderRoutes);
-
-app.use((req, res ) => {
-  if (!res.headersSent) {
-    res.status(500).json({
-      success: false,
-      message: {
-        hint: "Critical Internal error",
-        detail: "Please check runtime console. Something didn't add up.",
-      },
-    });
-  }
-});
 
 function start(PORT) {
   PORT = !PORT ? 3000 : PORT;
