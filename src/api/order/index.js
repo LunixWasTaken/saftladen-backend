@@ -18,9 +18,6 @@ router.get('/:id', oGetId);
 router.put('/', oPut);
 // Creates new Object in database
 
-// router.patch('/:id', pPatch); // Can be added later if required.
-// Returns specific Product by ID
-
 router.delete('/:id', oDelete);
 // Returns specific Product by ID
 

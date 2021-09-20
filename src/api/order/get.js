@@ -6,8 +6,8 @@ const router = express.Router();
 
 
 router.get('/', async (req, res) => {
-  const result = await orders.find();
-  res.status(200).type('application/json').send(result);
+  const result = await orders.find({customerId: req.user.id});
+  res.status(200).type('json').send(result);
 });
 
 export default router;

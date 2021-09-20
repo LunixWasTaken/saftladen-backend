@@ -13,7 +13,7 @@ router.delete('/:id', (req, res, next) => {
     err ? res.status(404).json({
       success: false,
       message: err,
-    }) : res.status(200).json(product);
+    }) : res.status(200).json({success: true, deleted: product});
   });
 });
 
