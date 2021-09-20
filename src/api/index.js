@@ -41,7 +41,8 @@ function authenticateToken(req, res, next) {
 }
 
 const corsOptions = {
-  exposedHeaders: 'Set-Cookie',
+  credentials: true,
+  origin: true,
 };
 
 app.use(cookieParser());
