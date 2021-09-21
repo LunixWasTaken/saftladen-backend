@@ -18,7 +18,7 @@ router.patch('/:id', async (req, res, next) => {
   if (!req.body) return res.sendStatus(400);
   // if (!req.isAdmin) return res.sendStatus(403);
   const obj = req.body;
-  const validation = new Validator(prod, validationRules);
+  const validation = new Validator(req.body, validationRules);
   validation.fails(() => {
     console.log("Validation failed.");
     return res.status(412).json({
@@ -55,8 +55,8 @@ router.patch('/:id', async (req, res, next) => {
         modified: prod,
       });
     });
-  } catch {
-    return res.status(500).end();
+  } catch (ex) {
+    return res.status(500).end(ex);
   }
 });
 

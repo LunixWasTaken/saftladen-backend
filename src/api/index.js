@@ -22,11 +22,17 @@ function logging(req, res, next) {
 }
 
 function authenticateToken(req, res, next) {
+  if (req.method.toString().toLowerCase() == "options") next();
   const exceptions = ['/user/login', '/user/register', '/'];
   if (exceptions.includes(req.url)) return next();
 
+  let token = undefined;
   const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+  if (authHeader) {
+    token = authHeader && authHeader.split(' ')[1];
+  } else {
+    token = req.cookies.token;
+  }
   if (token == null) return res.sendStatus(401);
 
   jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
@@ -47,8 +53,8 @@ const corsOptions = {
 
 app.use(cookieParser());
 app.use(logging);
-app.use(authenticateToken);
 app.use(cors(corsOptions));
+app.use(authenticateToken);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(upload.array());

@@ -16,7 +16,7 @@ const validationRules = {
 
 router.put('/', (req, res) => {
   if (!req.body) return res.sendStatus(400);
-  // if (!req.Admin) return res.sendStatus(403);
+  if (!req.user.isAdmin) return res.sendStatus(403);
 
   const prod = {
     name: req.body.name,
