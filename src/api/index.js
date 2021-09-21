@@ -26,7 +26,7 @@ function authenticateToken(req, res, next) {
   const exceptions = ['/user/login', '/user/register', '/'];
   if (exceptions.includes(req.url)) return next();
 
-  const token = undefined;
+  let token = undefined;
   const authHeader = req.headers['authorization'];
   if (authHeader) {
     token = authHeader && authHeader.split(' ')[1];

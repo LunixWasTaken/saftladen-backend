@@ -43,7 +43,7 @@ router.post('/', (req, res, next) => {
       if (!isMatch) return res.status(401).json({success: false, message: "Username or password not correct."});
       const token = jwt.sign({username: user.username, creationDate: user.creationDate, isAdmin: user.isAdmin, id: user._id}, process.env.TOKEN_SECRET, {expiresIn: '8h'});
 
-      res.cookie('token', token, {maxAge: 28800, httpOnly: true});
+      res.cookie('token', token, {maxAge: 28800, httpOnly: false});
       res.status(200).json({success: true});
     });
   });
