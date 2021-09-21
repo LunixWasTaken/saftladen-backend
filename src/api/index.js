@@ -53,8 +53,8 @@ const corsOptions = {
 
 app.use(cookieParser());
 app.use(logging);
-app.use(authenticateToken);
 app.use(cors(corsOptions));
+app.use(authenticateToken);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(upload.array());
