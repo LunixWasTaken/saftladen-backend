@@ -14,9 +14,8 @@ const productSchema = new mongoose.Schema({
     required: "Description is required",
   },
   img: {
-    type: Buffer,
-    contentType: String,
-    // required: "No Image?"
+    type: String,
+    required: "No Image?",
   },
   available: {
     type: Boolean,

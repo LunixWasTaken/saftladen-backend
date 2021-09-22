@@ -1,6 +1,7 @@
 import express from 'express';
 import Category from '../../models/categoryModel.js';
 import Validator from 'validatorjs';
+import createInDb from '../functions/createDb.js';
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
@@ -12,7 +13,7 @@ const validationRules = {
   "img": "required|string",
 };
 
-router.put('/', (req, res) => {
+router.put('/', async (req, res) => {
   if (!req.body) return res.sendStatus(400);
   if (!req.user.isAdmin) return res.sendStatus(403);
 
@@ -24,8 +25,8 @@ router.put('/', (req, res) => {
   };
 
   const validation = new Validator(cate, validationRules);
-  validation.fails(() => {
-    console.log("Validation failed.");
+
+  if (validation.fails()) {
     return res.status(412).json({
       success: false,
       message: {
@@ -33,17 +34,11 @@ router.put('/', (req, res) => {
         details: validation.errors,
       },
     });
-  });
+  }
 
-  if (!validation.check()) return;
+  const resp = await createInDb(Category, cate);
 
-  Category.create(cate, (err, data) => {
-    if (err) {
-      console.error("PUT CATEGORY", err);
-      return res.sendStatus(500);
-    }
-    res.status(201).type('json').send(data);
-  });
+  res.status(resp[0]).type("json").json(resp[1]);
 });
 
 export default router;

@@ -14,8 +14,7 @@ const categorySchema = new mongoose.Schema({
     required: "User required.",
   },
   img: {
-    type: Buffer,
-    contentType: String,
+    type: String,
     required: "No Image?",
   },
 });
