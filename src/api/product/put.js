@@ -41,7 +41,6 @@ router.put('/', async (req, res) => {
   }
 
   const resp = await createInDb(Products, data);
-  console.log(resp);
 
   res.status(resp[0]).type("json").json(resp[1]);
 });

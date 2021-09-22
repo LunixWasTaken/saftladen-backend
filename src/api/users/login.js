@@ -42,8 +42,6 @@ router.post('/', async (req, res, next) => {
     });
   };
 
-  console.log(dbUser);
-
   dbUser.comparePassword(req.body.password, (err, isMatch) => {
     if (err) {
       res.status(500).json({success: false, message: err});
