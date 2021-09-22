@@ -1,5 +1,5 @@
 import express from 'express';
-import products from '../../models/productModel.js';
+import Category from '../../models/categoryModel.js';
 import Validator from 'validatorjs';
 
 // eslint-disable-next-line new-cap
@@ -7,11 +7,9 @@ const router = express.Router();
 
 const validationRules = {
   "name": "string",
-  "price": "numeric|min:0",
+  "displayName": "string",
   "description": "string",
-  "available": "boolean",
-  "category": "string",
-  "img": "",
+  "img": "string",
 };
 
 router.patch('/:id', async (req, res, next) => {
@@ -33,7 +31,7 @@ router.patch('/:id', async (req, res, next) => {
   if (!validation.check()) return;
 
   try {
-    products.findOne({
+    Category.findOne({
       _id: req.params.id,
     }, (err, prod) => {
       if (err) {
@@ -41,14 +39,13 @@ router.patch('/:id', async (req, res, next) => {
           success: false,
           message: JSON.stringify(err),
         });
-        return console.error("PATCH PRODUCT", err);
+        return console.error("PATCH CATEGORY", err);
       }
       if (!prod) return res.sendStatus(404);
       prod.name = prod.name != obj.name ? obj.name : prod.name;
-      prod.price = prod.price != obj.price ? obj.price : prod.price;
+      prod.displayName = prod.displayName != obj.displayName ? obj.displayName : prod.displayName;
       prod.description = prod.description != obj.description ? obj.description : prod.description;
       prod.img = prod.img != obj.img ? obj.img : prod.img;
-      prod.available = prod.available != obj.available ? obj.available : prod.available;
       prod.save();
       return res.status(200).json({
         success: true,
