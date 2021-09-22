@@ -1,6 +1,7 @@
 import express from 'express';
-import products from '../../models/productModel.js';
+import Products from '../../models/productModel.js';
 import Validator from 'validatorjs';
+import createInDb from '../functions/createDb.js';
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
@@ -11,14 +12,14 @@ const validationRules = {
   "description": "required|string",
   "available": "boolean",
   "category": "required|string",
-  "img": "",
+  "img": "required|string",
 };
 
-router.put('/', (req, res) => {
+router.put('/', async (req, res) => {
   if (!req.body) return res.sendStatus(400);
   if (!req.user.isAdmin) return res.sendStatus(403);
 
-  const prod = {
+  const data = {
     name: req.body.name,
     price: req.body.price,
     description: req.body.description,
@@ -27,9 +28,9 @@ router.put('/', (req, res) => {
     category: req.body.category,
   };
 
-  const validation = new Validator(prod, validationRules);
-  validation.fails(() => {
-    console.log("Validation failed.");
+  const validation = new Validator(data, validationRules);
+
+  if (validation.fails()) {
     return res.status(412).json({
       success: false,
       message: {
@@ -37,17 +38,12 @@ router.put('/', (req, res) => {
         details: validation.errors,
       },
     });
-  });
+  }
 
-  if (!validation.check()) return;
+  const resp = await createInDb(Products, data);
+  console.log(resp);
 
-  products.create(prod, (err, data) => {
-    if (err) {
-      console.error("PUT PRODUCT", err);
-      return res.sendStatus(500);
-    }
-    res.status(201).type('json').send(data);
-  });
+  res.status(resp[0]).type("json").json(resp[1]);
 });
 
 export default router;
