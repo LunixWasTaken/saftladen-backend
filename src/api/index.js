@@ -24,7 +24,7 @@ function logging(req, res, next) {
 function authenticateToken(req, res, next) {
   if (req.method.toString().toLowerCase() == "options") next();
   const exceptions = ['/user/login', '/user/register', '/', '/product/'];
-  if (exceptions.includes(req.url)) return next();
+  if (exceptions.includes(req.url) && ['post', 'get'].includes(req.method.toLowerCase())) return next();
 
   let token = undefined;
   const authHeader = req.headers['authorization'];
