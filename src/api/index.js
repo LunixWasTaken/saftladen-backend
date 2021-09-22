@@ -1,6 +1,4 @@
 import express from 'express';
-import bodyParser from 'body-parser';
-import multer from 'multer';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
@@ -9,7 +7,6 @@ import productRoutes from './product/index.js';
 import orderRoutes from './order/index.js';
 import categoryRoutes from './category/index.js';
 
-const upload = multer();
 const app = express();
 
 app.use((req, res, next) => {
@@ -23,8 +20,9 @@ function logging(req, res, next) {
 }
 
 function authenticateToken(req, res, next) {
-  if (req.method.toString().toLowerCase() == "options") next();
-  const exceptions = ['/user/login', '/user/register', '/', '/product/', '/category/'];
+  if (req.method.toString().toLowerCase() == "options") return next();
+  const exceptions = ['/user/login', '/user/register', '/', '/product', '/category'];
+  if (req.url.includes("/category/") || req.url.includes("/product/")) return next();
   if (exceptions.includes(req.url) && ['post', 'get'].includes(req.method.toLowerCase())) return next();
 
   let token = undefined;
@@ -56,9 +54,8 @@ app.use(cookieParser());
 app.use(logging);
 app.use(cors(corsOptions));
 app.use(authenticateToken);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(upload.array());
+app.use(express.json({extended: false, limit: "50mb"}));
+app.use(express.urlencoded({extended: false}));
 
 app.get('/', (req, res) => {
   res.status(418).end("O.o");
