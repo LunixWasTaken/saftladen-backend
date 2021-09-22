@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import userRoutes from './users/index.js';
 import productRoutes from './product/index.js';
 import orderRoutes from './order/index.js';
+import categoryRoutes from './category/index.js';
 
 const upload = multer();
 const app = express();
@@ -23,7 +24,7 @@ function logging(req, res, next) {
 
 function authenticateToken(req, res, next) {
   if (req.method.toString().toLowerCase() == "options") next();
-  const exceptions = ['/user/login', '/user/register', '/', '/product/'];
+  const exceptions = ['/user/login', '/user/register', '/', '/product/', '/category/'];
   if (exceptions.includes(req.url) && ['post', 'get'].includes(req.method.toLowerCase())) return next();
 
   let token = undefined;
@@ -66,6 +67,7 @@ app.get('/', (req, res) => {
 app.use('/user', userRoutes);
 app.use('/product', productRoutes);
 app.use('/order', orderRoutes);
+app.use('/category', categoryRoutes);
 
 function start(PORT) {
   PORT = !PORT ? 3000 : PORT;
