@@ -20,9 +20,9 @@ function logging(req, res, next) {
 }
 
 function authenticateToken(req, res, next) {
-  if (req.method.toString().toLowerCase() == "options") next();
+  if (req.method.toString().toLowerCase() == "options") return next();
   const exceptions = ['/user/login', '/user/register', '/', '/product', '/category'];
-  if (req.url.contains("/category/")) next();
+  if (req.url.includes("/category/") || req.url.includes("/product/")) return next();
   if (exceptions.includes(req.url) && ['post', 'get'].includes(req.method.toLowerCase())) return next();
 
   let token = undefined;
