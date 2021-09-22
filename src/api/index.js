@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import userRoutes from './users/index.js';
 import productRoutes from './product/index.js';
 import orderRoutes from './order/index.js';
+import categoryRoutes from './category/index.js';
 
 const upload = multer();
 const app = express();
@@ -66,6 +67,7 @@ app.get('/', (req, res) => {
 app.use('/user', userRoutes);
 app.use('/product', productRoutes);
 app.use('/order', orderRoutes);
+app.use('/category', categoryRoutes);
 
 function start(PORT) {
   PORT = !PORT ? 3000 : PORT;
