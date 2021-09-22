@@ -22,7 +22,7 @@ function logging(req, res, next) {
 function authenticateToken(req, res, next) {
   if (req.method.toString().toLowerCase() == "options") return next();
   const exceptions = ['/user/login', '/user/register', '/', '/product', '/category'];
-  if (req.url.includes("/category/") || req.url.includes("/product/")) return next();
+  if (req.url.includes("/category/") && req.method.toLowerCase() == "get" || req.url.includes("/product/") && req.method.toLowerCase() == "get") return next();
   if (exceptions.includes(req.url) && ['post', 'get'].includes(req.method.toLowerCase())) return next();
 
   let token = undefined;
