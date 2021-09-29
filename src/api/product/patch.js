@@ -17,7 +17,8 @@ const validationRules = {
 
 router.patch('/:id', async (req, res, next) => {
   if (!req.body) return res.sendStatus(400);
-  if (!req.isAdmin) return res.sendStatus(403);
+  if (!req.user.isAdmin) return res.sendStatus(403);
+
   const obj = req.body;
   const validation = new Validator(obj, validationRules);
 
